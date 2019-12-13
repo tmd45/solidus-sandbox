@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_31_082140) do
+ActiveRecord::Schema.define(version: 2019_12_11_082906) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -900,7 +900,6 @@ ActiveRecord::Schema.define(version: 2019_05_31_082140) do
     t.integer "originator_id"
     t.datetime "created_at", precision: 6
     t.datetime "updated_at", precision: 6
-    t.integer "update_reason_id"
     t.decimal "amount_remaining", precision: 8, scale: 2
     t.integer "store_credit_reason_id"
     t.index ["deleted_at"], name: "index_spree_store_credit_events_on_deleted_at"
@@ -920,12 +919,6 @@ ActiveRecord::Schema.define(version: 2019_05_31_082140) do
     t.datetime "created_at", precision: 6
     t.datetime "updated_at", precision: 6
     t.index ["priority"], name: "index_spree_store_credit_types_on_priority"
-  end
-
-  create_table "spree_store_credit_update_reasons", id: :serial, force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", precision: 6
-    t.datetime "updated_at", precision: 6
   end
 
   create_table "spree_store_credits", id: :serial, force: :cascade do |t|
@@ -1111,6 +1104,7 @@ ActiveRecord::Schema.define(version: 2019_05_31_082140) do
     t.datetime "confirmation_sent_at"
     t.index ["deleted_at"], name: "index_spree_users_on_deleted_at"
     t.index ["email"], name: "email_idx_unique", unique: true
+    t.index ["reset_password_token"], name: "index_spree_users_on_reset_password_token_solidus_auth_devise", unique: true
     t.index ["spree_api_key"], name: "index_spree_users_on_spree_api_key"
   end
 
